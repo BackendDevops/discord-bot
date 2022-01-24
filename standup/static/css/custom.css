@@ -1,0 +1,83 @@
+body {
+    padding-top: 5rem;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.participation {
+    background: #eee;
+    padding: 20px;
+    margin: 15px 0;
+}
+
+.participation h3 {
+    background: black;
+    color: white;
+    margin: -20px;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.participation h4 {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+form {
+    margin: 40px 0;
+}
+
+form label {
+    display: block;
+}
+
+form textarea {
+    width: 100%;
+    display: block;
+    height: 120px;
+    padding: 10px;
+}
+
+.helptext {
+    display: block;
+    color: #777;
+    font-size: 0.8rem;
+    margin-bottom: 1.2rem;
+    margin-top: 0.2rem;
+}
+
+.important {
+    color: #e00;
+}
+
+h1 {
+    border-bottom: 2px solid;
+    margin-bottom: 1em;
+    padding-bottom: 10px;
+}
+
+a {
+    color: black;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+nav a {
+    text-decoration: none;
+}
+
+.pagination {
+    margin-top: 50px;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+ul li {
+    padding: 2px 0;
+}

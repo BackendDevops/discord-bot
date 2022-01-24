@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block title %}{{standup.event.channel.server.name}} - #{{standup.event.channel.name}}{% endblock %}
+{% block content %}
+<h1>{{standup.event.channel.server.name}} - #{{standup.event.channel.name}}</h1>
+<h2>{{standup.event.standup_type.name}} - {{standup.standup_date|date:"l M d\t\h, Y"}}</h2>
+
+<div class="row">
+{% if standup.event.standup_type.private %}
+    {% with participation.previous_participation as prev %}
+        {% if prev %}
+            <div class="col-12 col-md-6">
+                <a href="{{prev.get_private_url}}">&laquo; to {{prev.standup.standup_date|date:"l M d\t\h, Y"}}</a>
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    {% with participation.next_participation as next %}
+        {% if next %}
+            <div class="col-12 col-md-6">
+                <a href="{{next.get_private_url}}">to {{next.standup.standup_date|date:"l M d\t\h, Y"}} &raquo;</a>{% endif %}
+            </div>
+    {% endwith %}
+{% else %}
+    {% with standup.previous_standup as prev %}
+        {% if prev %}
+            <div class="col-12 col-md-6">
+                <a href="{{prev.get_public_url}}">&laquo; to {{prev.standup_date|date:"l M d\t\h, Y"}}</a>
+            </div>
+        {% endif %}
+    {% endwith %}
+    {% with standup.next_standup as next %}
+        {% if next %}
+            <div class="col-12 col-md-6">
+                <a href="{{next.get_public_url}}">to {{next.standup_date|date:"l M d\t\h, Y"}} &raquo;</a>
+            </div>
+        {% endif %}
+    {% endwith %}
+{% endif %}
+</div>
+
+<div class="row">
+{% for parti in standup.participants.active %}
+    <div class="col-12 col-md-6">
+        <div class="participation">
+            <h3>{{parti.user.first_name}}</h3>
+            
+            {% for answer in parti.answers.all %}
+                {% if answer.answer %}
+                <h4{% if answer.question.important %} class="important"{% endif %}>{{answer.question.question}}</h4>
+                <p>
+                    {{answer.answer|urlize|linebreaksbr}}
+                </p>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+{% endfor %}
+</div>
+{% if standup.event.standup_type.private and standup.participants.inactive.exists %}
+<div class="row mt-4 mb-5">
+    <div class="col-12">
+        <h4>Not filled in (yet):</h4>
+        {% for parti in standup.participants.inactive %}
+            {{parti.user.first_name}}{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+{% endblock %}
